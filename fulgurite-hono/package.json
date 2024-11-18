@@ -1,0 +1,29 @@
+{
+  "name": "@fulgurite/hono",
+  "version": "0.0.0",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./middlewares": {
+      "import": "./dist/middleware/index.mjs",
+      "require": "./dist/middleware/index.js"
+    }
+  },
+  "scripts": {
+    "dev": "tsup --watch",
+    "build": "tsup"
+  },
+  "devDependencies": {
+    "@types/http-status": "^1.1.2"
+  },
+  "dependencies": {
+    "hono": "^4.6.9",
+    "http-errors": "^2.0.0",
+    "http-status": "^2.0.0"
+  }
+}

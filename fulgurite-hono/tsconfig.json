@@ -1,0 +1,10 @@
+{
+  "extends": "@usd/config-typescript/esm_lib.json",
+  "include": ["src"],
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist",
+    "moduleResolution": "Bundler"
+  },
+  "exclude": ["node_modules", "dist", ".turbo"]
+}
