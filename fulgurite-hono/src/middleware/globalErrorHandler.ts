@@ -1,4 +1,5 @@
 import { Context, ErrorHandler, HonoRequest } from 'hono';
+import { StatusCode } from 'hono/utils/http-status';
 import createHttpError from 'http-errors';
 import HTTPStatus from 'http-status';
 
@@ -39,7 +40,7 @@ export function handleHttpError(
         body.details = getRequestDetails(c.req);
     }
     logger(err.message, { http: body, stack: err.stack, ...getRequestDetails(c.req) });
-    c.json(body);
+    return c.json(body, err.statusCode as StatusCode);
 }
 
 // TODO jod validate Error
@@ -67,7 +68,7 @@ export function handleUnknownError(
         body.details = getRequestDetails(c.req);
     }
     logger(err.message, { http: body, stack: err.stack, ...getRequestDetails(c.req) });
-    c.json(body);
+    return c.json(body, 500);
 }
 
 export function globalErrorHandler({
@@ -78,9 +79,9 @@ export function globalErrorHandler({
     return function errorHandlerMiddleware(err, c) {
         // TODO add jod validate Error
         if (createHttpError.isHttpError(err)) {
-            handleHttpError(err, c, logger || console.log, extended);
+            return handleHttpError(err, c, logger || console.log, extended);
         } else {
-            handleUnknownError(err, c, logger || console.log, extended);
+            return handleUnknownError(err, c, logger || console.log, extended);
         }
     } as ErrorHandler;
 }
