@@ -17,8 +17,8 @@
   },
   "devDependencies": {},
   "dependencies": {
-    "winston": "^3.13.0",
+    "winston": "^3.17.0",
     "winston-daily-rotate-file": "^5.0.0",
-    "winston-transport": "^4.7.0"
+    "winston-transport": "^4.9.0"
   }
 }
