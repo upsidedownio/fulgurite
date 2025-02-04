@@ -15,13 +15,14 @@
     }
   },
   "scripts": {
-    "dev": "tsup --watch",
+    "dev": "tsup --watch --config tsup.config.ts",
     "build": "tsup"
   },
   "devDependencies": {},
   "dependencies": {
     "hono": "^4.6.9",
     "http-errors": "^2.0.0",
-    "http-status": "^2.0.0"
+    "http-status": "^2.0.0",
+    "lru-cache": "^11.0.2"
   }
 }

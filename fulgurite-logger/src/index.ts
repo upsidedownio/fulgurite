@@ -62,7 +62,7 @@ function createLogger(opts: CreateLoggerOpts = {}): Logger {
                 winston.format.prettyPrint({depth: 100, colorize: true}),
                 winston.format.printf((info) => {
                     const { timestamp, level, message, stack, ...args } = info;
-                    const ts = timestamp.replace('T', ' ');
+                    const ts = (timestamp as string).replace('T', ' ');
                     return `${ts} [${level}]: ${message} ${stack ? `- ${stack}` : ''} ${Object.keys(args).length ? `\n${prettyJ(args)}` : ''}`;
                 }),
             ),

@@ -1,5 +1,5 @@
 import { Context, ErrorHandler, HonoRequest } from 'hono';
-import { StatusCode } from 'hono/utils/http-status';
+import { ContentfulStatusCode } from 'hono/utils/http-status';
 import createHttpError from 'http-errors';
 import HTTPStatus from 'http-status';
 
@@ -40,7 +40,7 @@ export function handleHttpError(
         body.details = getRequestDetails(c.req);
     }
     logger(err.message, { http: body, stack: err.stack, ...getRequestDetails(c.req) });
-    return c.json(body, err.statusCode as StatusCode);
+    return c.json(body, err.statusCode as ContentfulStatusCode);
 }
 
 // TODO jod validate Error
