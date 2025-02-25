@@ -1,8 +1,9 @@
-import { HonoRequest, NotFoundHandler } from 'hono';
+import { Env, HonoRequest, NotFoundHandler } from 'hono';
 import HTTPStatus from 'http-status';
 import _ from 'lodash';
 
-export function notFoundHandler({
+// biome-ignore lint/suspicious/noExplicitAny: handling for various unknown environment constraints
+export function notFoundHandler<T extends Env = any>({
     logger,
     log,
     extended,
@@ -10,7 +11,7 @@ export function notFoundHandler({
     logger?: (message: string) => void;
     log?: (req: HonoRequest) => void;
     extended: boolean | Array<string>;
-}): NotFoundHandler {
+}): NotFoundHandler<T> {
     return function notFoundHandlingMiddleware(c) {
         if (log) {
             log(c.req);

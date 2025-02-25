@@ -1,4 +1,4 @@
-import { Context, ErrorHandler, HonoRequest } from 'hono';
+import { Context, Env, ErrorHandler, HonoRequest } from 'hono';
 import { ContentfulStatusCode } from 'hono/utils/http-status';
 import createHttpError from 'http-errors';
 import HTTPStatus from 'http-status';
@@ -17,7 +17,7 @@ export function getRequestDetails(req: HonoRequest) {
 export function handleHttpError(
     err: createHttpError.HttpError,
     c: Context,
-    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+    // biome-ignore lint/suspicious/noExplicitAny: used for logging
     logger: (msg: string, extra?: any) => void,
     extended?: boolean,
 ) {
@@ -71,11 +71,13 @@ export function handleUnknownError(
     return c.json(body, 500);
 }
 
-export function globalErrorHandler({
+// biome-ignore lint/suspicious/noExplicitAny:
+export function globalErrorHandler<T extends Env = any>({
     logger,
     extended,
-    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-}: { logger?: (msg: string, extra?: any) => void; extended?: boolean } = {}): ErrorHandler {
+
+    // biome-ignore lint/suspicious/noExplicitAny: handling for various unknown environment constraints
+}: { logger?: (msg: string, extra?: any) => void; extended?: boolean } = {}): ErrorHandler<T> {
     return function errorHandlerMiddleware(err, c) {
         // TODO add jod validate Error
         if (createHttpError.isHttpError(err)) {
