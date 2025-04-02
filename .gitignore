@@ -1,4 +1,5 @@
 node_modules/
 dist/
 .turbo/
+tsup.config.bundled_*.mjs
 
